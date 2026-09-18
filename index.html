@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cherry — кофейня-кондитерская в Волгограде</title>
+<meta name="description" content="Кофейня-кондитерская Cherry: кофе, авторские десерты, клубника и вишня в бельгийском шоколаде. Волгоград, ул. Мира, 26.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prata&family=Golos+Text:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   ТОКЕНЫ
+   Бренд фиксированный: цвета одинаковы в светлой и тёмной теме.
+   ============================================================ */
+:root{
+  --ink:#2A1016;
+  --wine:#5E0B1E;
+  --cherry:#A31229;
+  --cream:#FBF6F2;
+  --blush:#F0DCD9;
+  --muted:#7A5A60;
+  --line:#D9BDBA;
+
+  --display:"Prata", "Times New Roman", Georgia, serif;
+  --body:"Golos Text", "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+
+  --pad:clamp(20px, 5vw, 64px);
+  --gap:clamp(48px, 9vw, 120px);
+  --measure:62ch;
+}
+:root:not([data-theme="light"]){ color-scheme: light; }
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ink:#2A1016; --wine:#5E0B1E; --cherry:#A31229;
+    --cream:#FBF6F2; --blush:#F0DCD9; --muted:#7A5A60; --line:#D9BDBA;
+  }
+}
+:root[data-theme="dark"]{
+  --ink:#2A1016; --wine:#5E0B1E; --cherry:#A31229;
+  --cream:#FBF6F2; --blush:#F0DCD9; --muted:#7A5A60; --line:#D9BDBA;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--cream);
+  color:var(--ink);
+  font-family:var(--body);
+  font-size:clamp(16px,1.05vw,17px);
+  line-height:1.65;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--cherry);outline-offset:3px;border-radius:2px}
+
+h1,h2,h3{font-family:var(--display);font-weight:400;line-height:1.1;margin:0}
+p{margin:0}
+
+.wrap{max-width:1180px;margin:0 auto;padding-inline:var(--pad)}
+.narrow{max-width:var(--measure)}
+
+/* ============================================================
+   ПЛЕЙСХОЛДЕРЫ ПОД ФОТО
+   Замени блок .ph на <img loading="lazy" decoding="async" src="..." alt="..."> — размеры указаны внутри.
+   ============================================================ */
+.ph{
+  position:relative;
+  background:
+    repeating-linear-gradient(45deg, rgba(163,18,41,.05) 0 12px, rgba(163,18,41,.10) 12px 24px),
+    var(--blush);
+  border:1px solid var(--line);
+  display:grid;place-content:center;
+  text-align:center;
+  padding:24px;
+  color:var(--wine);
+  font-size:13px;
+  line-height:1.5;
+  min-height:180px;
+}
+.ph b{font-weight:600;display:block;font-size:14px}
+.ph span{color:var(--muted);font-size:12px}
+
+/* ============================================================
+   ШАПКА
+   ============================================================ */
+.bar{
+  position:fixed;inset:0 0 auto 0;z-index:40;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:16px;
+  padding:14px var(--pad);
+  background:rgba(251,246,242,.94);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);
+  transform:translateY(-100%);
+  transition:transform .28s ease;
+}
+.bar.show{transform:translateY(0)}
+@media (prefers-reduced-motion:reduce){ .bar{transition:none} }
+.bar__name{font-family:var(--display);font-size:20px;letter-spacing:.02em;
+  display:flex;align-items:center;gap:7px}
+.bar__name svg{width:14px;height:auto;color:var(--cherry);flex:none}
+.bar__nav{display:flex;gap:22px;font-size:14px}
+.bar__nav a{text-decoration:none;padding-block:4px;border-bottom:1px solid transparent}
+.bar__nav a:hover{border-bottom-color:var(--cherry)}
+@media (max-width:760px){ .bar__nav{display:none} }
+
+/* ============================================================
+   ОБЛОЖКА
+   ============================================================ */
+.hero{position:relative;min-height:100svh;display:grid;grid-template-rows:auto 1fr;isolation:isolate}
+.hero__logo{
+  padding-top:clamp(22px,3.4vh,40px);
+  display:flex;align-items:center;gap:clamp(8px,1vw,13px);
+  color:#fff;font-family:var(--display);
+  font-size:clamp(30px,4.4vw,52px);line-height:1;letter-spacing:.015em;
+  text-shadow:0 2px 20px rgba(20,6,10,.5);
+}
+.hero__logo svg{width:clamp(20px,2.6vw,32px);height:auto;color:#EFA3AE;flex:none}
+.hero__inner{align-self:end}
+.hero__media{position:absolute;inset:0;z-index:-2;overflow:hidden}
+.hero__media .ph{width:100%;height:100%;min-height:100svh;border:0}
+.hero__media img{width:100%;height:100%;object-fit:cover;object-position:60% center}
+@media (max-width:760px){ .hero__media img{object-position:62% center} }
+.hero::after{
+  content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(180deg, rgba(20,6,10,.42) 0%, rgba(20,6,10,.10) 28%, rgba(20,6,10,.55) 60%, rgba(20,6,10,.90) 100%);
+}
+.hero__inner{padding-block:clamp(48px,10vh,110px);color:#fff}
+.hero__line{
+  font-family:var(--display);
+  font-size:clamp(34px,5.6vw,68px);
+  line-height:1.12;
+  max-width:13ch;
+  margin:0 0 .5em;
+  text-shadow:0 2px 24px rgba(20,6,10,.45);
+}
+.hero__sub{max-width:40ch;color:rgba(255,255,255,.88);margin-bottom:2.2em;text-shadow:0 1px 14px rgba(20,6,10,.5)}
+.hero__cta{display:flex;flex-wrap:wrap;gap:12px}
+
+.btn{
+  display:inline-block;
+  padding:14px 26px;
+  font:500 15px/1 var(--body);
+  text-decoration:none;
+  border:1px solid transparent;
+  transition:background .2s ease,color .2s ease;
+}
+.btn--solid{background:var(--cherry);color:#fff}
+.btn--solid:hover{background:#8A0F22}
+.btn--ghost{border-color:rgba(255,255,255,.55);color:#fff}
+.btn--ghost:hover{background:rgba(255,255,255,.12)}
+
+/* одна срежиссированная анимация: появление обложки */
+.rise{opacity:0;transform:translateY(18px);animation:rise .9s cubic-bezier(.2,.7,.3,1) forwards}
+.rise:nth-child(2){animation-delay:.12s}
+.rise:nth-child(3){animation-delay:.22s}
+.rise:nth-child(4){animation-delay:.32s}
+@keyframes rise{to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){ .rise{animation:none;opacity:1;transform:none} }
+
+/* ============================================================
+   О МЕСТЕ
+   ============================================================ */
+.about{padding-block:var(--gap)}
+.mark{display:block;width:36px;color:var(--cherry);margin-bottom:22px}
+.mark svg{width:100%;height:auto;display:block}
+.star{display:inline-block;width:15px;vertical-align:-2px;color:#EFA3AE;margin-left:2px}
+.star svg{width:100%;height:auto;display:block}
+.about__text{font-size:clamp(19px,2.2vw,25px);line-height:1.5;max-width:34ch;font-family:var(--display)}
+.about__cols{display:grid;grid-template-columns:1fr;gap:32px;margin-top:40px}
+@media (min-width:860px){ .about__cols{grid-template-columns:1.1fr .9fr;gap:60px;align-items:start} }
+.about__note{color:var(--muted);max-width:46ch}
+.about__note + .about__note{margin-top:1em}
+
+/* ============================================================
+   МЕНЮ — типографский список с отточиями
+   ============================================================ */
+.menu{background:var(--wine);color:var(--cream);padding-block:var(--gap)}
+.menu__head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:56px}
+.menu__title{font-size:clamp(38px,7vw,76px);color:var(--cream)}
+.menu__note{color:rgba(251,246,242,.65);font-size:14px;max-width:30ch}
+
+.menu__grid{display:grid;grid-template-columns:1fr;gap:56px}
+@media (min-width:880px){ .menu__grid{grid-template-columns:1fr 1fr;gap:56px 72px} }
+
+.cat__name{
+  font-family:var(--display);
+  font-size:26px;
+  padding-bottom:12px;
+  margin-bottom:20px;
+  border-bottom:1px solid rgba(251,246,242,.28);
+}
+.list{list-style:none;margin:0;padding:0}
+.list li + li{margin-top:18px}
+.row{display:flex;align-items:baseline;gap:8px}
+.row__name{font-weight:500}
+.row__dots{flex:1;border-bottom:1px dotted rgba(251,246,242,.4);transform:translateY(-.3em);min-width:18px}
+.row__price{white-space:nowrap;font-variant-numeric:tabular-nums}
+.row__meta{color:rgba(251,246,242,.55);font-size:13px;margin-top:2px}
+
+/* ============================================================
+   ЧЕТЫРЕ КАДРА ПЕРЕД МЕНЮ — со сдвигом, с названием и ценой
+   ============================================================ */
+.picks{padding-block:var(--gap)}
+.picks__grid{display:grid;grid-template-columns:repeat(2,1fr);gap:26px 20px}
+@media (min-width:820px){ .picks__grid{grid-template-columns:repeat(4,1fr);gap:30px} }
+.picks figure{margin:0}
+.picks figure:nth-child(even){margin-top:clamp(28px,5vw,64px)}
+.picks img{width:100%;aspect-ratio:4/5;object-fit:cover}
+.picks figure:nth-child(2) img{object-position:58% center}
+.picks figcaption{
+  margin-top:14px;padding-top:10px;border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;align-items:baseline;gap:10px;
+}
+.picks .nm{font-family:var(--display);font-size:clamp(15px,1.5vw,18px);line-height:1.25}
+.picks .pr{color:var(--muted);font-size:14px;font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* ============================================================
+   ЯГОДЫ В ШОКОЛАДЕ — тёмный разворот во всю ширину
+   ============================================================ */
+.berries{background:#190810;color:var(--cream)}
+.berries__split{display:grid;grid-template-columns:1fr}
+@media (min-width:900px){
+  .berries__split{grid-template-columns:1.04fr .96fr;min-height:clamp(560px,82vh,860px)}
+}
+.berries__photos{display:grid;grid-template-rows:1fr 1fr;line-height:0}
+.berries__photos img{width:100%;height:100%;min-height:0;object-fit:cover}
+.berries__photos img:first-child{object-position:center 58%}
+@media (max-width:899px){
+  .berries__photos img{height:auto;aspect-ratio:3/2}
+}
+.berries__body{
+  padding:var(--gap) var(--pad);
+  display:flex;flex-direction:column;justify-content:center;
+}
+.berries__body > *{max-width:46ch}
+.berries h2{font-size:clamp(32px,5vw,56px);margin-bottom:.45em;color:var(--cream)}
+.berries p{color:rgba(251,246,242,.66)}
+.berries p + p{margin-top:1em}
+.priceline{
+  margin-top:36px;padding-top:26px;border-top:1px solid rgba(251,246,242,.24);
+  display:flex;flex-wrap:wrap;gap:22px 44px;
+}
+.priceline div{font-size:14px}
+.priceline b{display:block;font-family:var(--display);font-size:24px;font-weight:400;color:var(--cream)}
+.priceline span{color:rgba(251,246,242,.55)}
+
+/* ============================================================
+   ЗАЛ — тёмная секция, разный масштаб кадров
+   ============================================================ */
+.room{background:#190810;color:var(--cream);padding-block:var(--gap)}
+.room h2{color:var(--cream);font-size:clamp(32px,5vw,56px);margin-bottom:.35em}
+.room__lead{color:rgba(251,246,242,.62);max-width:38ch}
+.room__top{display:grid;grid-template-columns:1fr;gap:20px}
+@media (min-width:880px){
+  .room__top{grid-template-columns:.82fr 1.18fr;gap:56px;align-items:end}
+}
+.room__side img{width:100%;aspect-ratio:3/2;object-fit:cover;margin-top:40px}
+.room__main img{width:100%;aspect-ratio:3/4;object-fit:cover}
+.room__band{margin-top:20px;line-height:0}
+.room__band img{width:100%;aspect-ratio:21/9;object-fit:cover;object-position:center 42%}
+@media (max-width:700px){ .room__band img{aspect-ratio:16/9} }
+
+/* ============================================================
+   КОНТАКТЫ — три колонки над картой во всю ширину
+   ============================================================ */
+.contacts{padding-top:var(--gap)}
+.contacts h2{font-size:clamp(32px,5vw,56px);margin-bottom:.7em}
+.contacts__cols{display:grid;grid-template-columns:1fr;gap:34px}
+@media (min-width:720px){ .contacts__cols{grid-template-columns:repeat(3,auto);justify-content:start;gap:64px} }
+.field__label{font-size:13px;color:var(--muted);margin-bottom:6px}
+.field__value{font-family:var(--display);font-size:21px;line-height:1.35;white-space:nowrap}
+.field__value a{text-decoration:none;border-bottom:1px solid var(--line)}
+.field__value a:hover{border-bottom-color:var(--cherry);color:var(--cherry)}
+.hours{display:grid;grid-template-columns:auto auto;gap:3px 20px;
+  font-family:var(--body);font-size:16px;line-height:1.5}
+.hours dt{color:var(--muted)}
+.hours dd{margin:0;font-variant-numeric:tabular-nums}
+.social{margin-top:38px;display:flex;gap:22px;font-size:15px}
+.social a{text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:2px}
+.social a:hover{border-bottom-color:var(--cherry);color:var(--cherry)}
+.mapband{margin-top:var(--gap);height:clamp(340px,46vh,520px);background:var(--blush)}
+.mapband iframe{width:100%;height:100%;display:block;border:0}
+
+/* ============================================================
+   ПОДВАЛ
+   ============================================================ */
+.foot{background:var(--ink);color:rgba(251,246,242,.7);padding-block:36px;font-size:13px}
+.foot__in{display:flex;flex-wrap:wrap;gap:12px 32px;justify-content:space-between;align-items:center}
+.foot__name{font-family:var(--display);font-size:20px;color:var(--cream)}
+.foot a{color:inherit}
+</style>
+</head>
+<body>
+
+<header class="bar" id="bar">
+  <div class="bar__name"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 5C12.5 10.5 9.6 14.2 9.2 17.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" fill="none"/><path d="M16 5c3.2 5.5 6 9.2 6.6 12.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" fill="none"/><path d="M16 5c2.4-2.4 6-2.8 8.6-1.4-1.8 2.8-5.4 3.8-8.6 1.4Z" fill="currentColor"/><circle cx="8.8" cy="22.2" r="4.8" fill="currentColor"/><circle cx="22.8" cy="22.2" r="4.8" fill="currentColor"/></svg><span>Cherry</span></div>
+  <nav class="bar__nav">
+    <a href="#room">Зал</a>
+    <a href="#menu">Меню</a>
+    <a href="#berries">Ягоды в шоколаде</a>
+    <a href="#contacts">Контакты</a>
+  </nav>
+  <a class="btn btn--solid" href="tel:+78442000000">Позвонить</a>
+</header>
+
+<!-- ОБЛОЖКА -->
+<section class="hero">
+  <div class="hero__media">
+    <img fetchpriority="high" decoding="async" src="img/hero.webp" alt="Фасад кофейни Cherry вечером: бордовая маркиза, светящаяся вывеска, столики под гирляндой">
+  </div>
+  <div class="wrap hero__logo"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 5C12.5 10.5 9.6 14.2 9.2 17.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" fill="none"/><path d="M16 5c3.2 5.5 6 9.2 6.6 12.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" fill="none"/><path d="M16 5c2.4-2.4 6-2.8 8.6-1.4-1.8 2.8-5.4 3.8-8.6 1.4Z" fill="currentColor"/><circle cx="8.8" cy="22.2" r="4.8" fill="currentColor"/><circle cx="22.8" cy="22.2" r="4.8" fill="currentColor"/></svg><span>Cherry</span></div>
+  <div class="wrap hero__inner">
+    <h1 class="hero__line rise">Кофе, десерты и вишня в шоколаде</h1>
+    <p class="hero__sub rise">Кофейня-кондитерская на улице Мира. Мягкие диваны, тихий зал и десерты, которые делаем сами каждое утро.</p>
+    <div class="hero__cta rise">
+      <a class="btn btn--solid" href="#menu">Смотреть меню</a>
+      <a class="btn btn--ghost" href="#contacts">Как добраться</a>
+    </div>
+  </div>
+</section>
+
+<!-- О МЕСТЕ -->
+<section class="about">
+  <div class="wrap">
+    <span class="mark"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 5C12.5 10.5 9.6 14.2 9.2 17.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" fill="none"/><path d="M16 5c3.2 5.5 6 9.2 6.6 12.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" fill="none"/><path d="M16 5c2.4-2.4 6-2.8 8.6-1.4-1.8 2.8-5.4 3.8-8.6 1.4Z" fill="currentColor"/><circle cx="8.8" cy="22.2" r="4.8" fill="currentColor"/><circle cx="22.8" cy="22.2" r="4.8" fill="currentColor"/></svg></span>
+    <p class="about__text">Мы открылись, чтобы в городе было место, где можно просидеть три часа с одной чашкой кофе и никто не поторопит.</p>
+    <div class="about__cols">
+      <div>
+        <p class="about__note">Десерты готовим на своей кухне. То, что не продали за день, не остаётся на завтра — поэтому к вечеру витрина редеет, а утром снова полная.</p>
+        <p class="about__note">Кофе варим на зерне локальной обжарки, меняем его раз в сезон. Если не знаете, что выбрать, спросите у бариста — подскажет без снобизма.</p>
+      </div>
+      <div>
+        <p class="about__note">Двенадцать столов, два дивана у окна, розетки почти везде. Можно работать, можно прийти вдвоём, можно с ноутбуком на весь день.</p>
+        <p class="about__note">Собираем подарочные наборы с ягодами в шоколаде — предупредите за сутки.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ЗАЛ -->
+<section class="room" id="room">
+  <div class="wrap">
+    <div class="room__top">
+      <div class="room__side">
+        <h2>Зал</h2>
+        <p class="room__lead">Бордовый велюр, мрамор и приглушённый свет. Днём светло от окон, вечером горят только лампы над столами.</p>
+        <img loading="lazy" decoding="async" src="img/room-2.webp" alt="Бордовый велюровый диван у окна, капучино и вишнёвый чизкейк на мраморном столике">
+      </div>
+      <div class="room__main">
+        <img loading="lazy" decoding="async" src="img/room-1.webp" alt="Зал Cherry вечером: мраморные столики, венские стулья, бордовый диван вдоль стены">
+      </div>
+    </div>
+  </div>
+  <div class="room__band">
+    <img loading="lazy" decoding="async" src="img/room-3.webp" alt="Витрина с тортами, эклерами и тартами">
+  </div>
+</section>
+
+<!-- ЧЕТЫРЕ КАДРА ПЕРЕД МЕНЮ -->
+<section class="picks">
+  <div class="wrap picks__grid">
+    <figure>
+      <img loading="lazy" decoding="async" src="img/f-coffee.webp" alt="Капучино с латте-артом">
+      <figcaption><span class="nm">Капучино</span><span class="pr">270 ₽</span></figcaption>
+    </figure>
+    <figure>
+      <img loading="lazy" decoding="async" src="img/f-cheesecake.webp" alt="Кусок чизкейка с ягодами">
+      <figcaption><span class="nm">Чизкейк Нью-Йорк</span><span class="pr">450 ₽</span></figcaption>
+    </figure>
+    <figure>
+      <img loading="lazy" decoding="async" src="img/f-chocolate.webp" alt="Кусок шоколадного торта с зеркальной глазурью">
+      <figcaption><span class="nm">Шоколадный торт</span><span class="pr">430 ₽</span></figcaption>
+    </figure>
+    <figure>
+      <img loading="lazy" decoding="async" src="img/f-pancakes.webp" alt="Сырники с ягодами и сиропом">
+      <figcaption><span class="nm">Сырники</span><span class="pr">460 ₽</span></figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- МЕНЮ -->
+<section class="menu" id="menu">
+  <div class="wrap">
+    <div class="menu__head">
+      <h2 class="menu__title">Меню</h2>
+      <p class="menu__note">Цены одинаковые в зале и навынос. <span class="star"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 5C12.5 10.5 9.6 14.2 9.2 17.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" fill="none"/><path d="M16 5c3.2 5.5 6 9.2 6.6 12.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" fill="none"/><path d="M16 5c2.4-2.4 6-2.8 8.6-1.4-1.8 2.8-5.4 3.8-8.6 1.4Z" fill="currentColor"/><circle cx="8.8" cy="22.2" r="4.8" fill="currentColor"/><circle cx="22.8" cy="22.2" r="4.8" fill="currentColor"/></svg></span> — то, ради чего к нам чаще всего возвращаются.</p>
+    </div>
+
+    <div class="menu__grid">
+
+      <div class="cat">
+        <h3 class="cat__name">Кофе</h3>
+        <ul class="list">
+          <li>
+            <div class="row"><span class="row__name">Эспрессо</span><span class="row__dots"></span><span class="row__price">165 ₽</span></div>
+            <div class="row__meta">30 мл</div>
+          </li>
+          <li>
+            <div class="row"><span class="row__name">Американо</span><span class="row__dots"></span><span class="row__price">200 ₽</span></div>
+            <div class="row__meta">200 мл</div>
+          </li>
+          <li>
+            <div class="row"><span class="row__name">Капучино</span><span class="row__dots"></span><span class="row__price">270 ₽</span></div>
+            <div class="row__meta">250 мл</div>
+          </li>
+          <li>
+            <div class="row"><span class="row__name">Латте</span><span class="row__dots"></span><span class="row__price">280 ₽</span></div>
+            <div class="row__meta">300 мл</div>
+          </li>
+          <li>
+            <div class="row"><span class="row__name">Флэт уайт</span><span class="row__dots"></span><span class="row__price">295 ₽</span></div>
+            <div class="row__meta">200 мл</div>
+          </li>
+          <li>
+            <div class="row"><span class="row__name">Раф вишнёвый <span class="star"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 5C12.5 10.5 9.6 14.2 9.2 17.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" fill="none"/><path d="M16 5c3.2 5.5 6 9.2 6.6 12.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" fill="none"/><path d="M16 5c2.4-2.4 6-2.8 8.6-1.4-1.8 2.8-5.4 3.8-8.6 1.4Z" fill="currentColor"/><circle cx="8.8" cy="22.2" r="4.8" fill="currentColor"/><circle cx="22.8" cy="22.2" r="4.8" fill="currentColor"/></svg></span></span><span class="row__dots"></span><span class="row__price">370 ₽</span></div>
+            <div class="row__meta">300 мл · на вишнёвом пюре собственного приготовления</div>
+          </li>
+          <li>
+            <div class="row"><span class="row__name">Мокко</span><span class="row__dots"></span><span class="row__price">340 ₽</span></div>
+            <div class="row__meta">300 мл</div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="cat">
+        <h3 class="cat__name">Чай и какао</h3>
+        <ul class="list">
+          <li>
+            <div class="row"><span class="row__name">Чёрный или зелёный</span><span class="row__dots"></span><span class="row__price">340 ₽</span></div>
+            <div class="row__meta">чайник 600 мл</div>
+          </li>
+          <li>
+            <div class="row"><span class="row__name">Вишня и ройбуш</span><span class="row__dots"></span><span class="row__price">490 ₽</span></div>
+            <div class="row__meta">чайник 600 мл</div>
+          </li>
+          <li>
+            <div class="row"><span class="row__name">Облепиха с имбирём</span><span class="row__dots"></span><span class="row__price">460 ₽</span></div>
+            <div class="row__meta">чайник 600 мл</div>
+          </li>
+          <li>
+            <div class="row"><span class="row__name">Какао на молоке</span><span class="row__dots"></span><span class="row__price">310 ₽</span></div>
+            <div class="row__meta">300 мл</div>
+          </li>
+          <li>
+            <div class="row"><span class="row__name">Матча латте</span><span class="row__dots"></span><span class="row__price">380 ₽</span></div>
+            <div class="row__meta">300 мл</div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="cat">
+        <h3 class="cat__name">Десерты</h3>
+        <ul class="list">
+          <li>
+            <div class="row"><span class="row__name">Корпусный «Cherry» <span class="star"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 5C12.5 10.5 9.6 14.2 9.2 17.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" fill="none"/><path d="M16 5c3.2 5.5 6 9.2 6.6 12.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" fill="none"/><path d="M16 5c2.4-2.4 6-2.8 8.6-1.4-1.8 2.8-5.4 3.8-8.6 1.4Z" fill="currentColor"/><circle cx="8.8" cy="22.2" r="4.8" fill="currentColor"/><circle cx="22.8" cy="22.2" r="4.8" fill="currentColor"/></svg></span></span><span class="row__dots"></span><span class="row__price">490 ₽</span></div>
+            <div class="row__meta">110 г · вишня, тёмный шоколад, миндальный бисквит</div>
+          </li>
+          <li>
+            <div class="row"><span class="row__name">Корпусный «Фисташка и малина»</span><span class="row__dots"></span><span class="row__price">520 ₽</span></div>
+            <div class="row__meta">110 г</div>
+          </li>
+          <li>
+            <div class="row"><span class="row__name">Чизкейк Нью-Йорк</span><span class="row__dots"></span><span class="row__price">450 ₽</span></div>
+            <div class="row__meta">140 г</div>
+          </li>
+          <li>
+            <div class="row"><span class="row__name">Шоколадный торт</span><span class="row__dots"></span><span class="row__price">430 ₽</span></div>
+            <div class="row__meta">140 г</div>
+          </li>
+          <li>
+            <div class="row"><span class="row__name">Медовик</span><span class="row__dots"></span><span class="row__price">410 ₽</span></div>
+            <div class="row__meta">150 г</div>
+          </li>
+          <li>
+            <div class="row"><span class="row__name">Эклер ванильный</span><span class="row__dots"></span><span class="row__price">230 ₽</span></div>
+            <div class="row__meta">70 г</div>
+          </li>
+          <li>
+            <div class="row"><span class="row__name">Тарт лимонный</span><span class="row__dots"></span><span class="row__price">440 ₽</span></div>
+            <div class="row__meta">120 г</div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="cat">
+        <h3 class="cat__name">Завтраки и закуски</h3>
+        <ul class="list">
+          <li>
+            <div class="row"><span class="row__name">Сырники с вишнёвым соусом <span class="star"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 5C12.5 10.5 9.6 14.2 9.2 17.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" fill="none"/><path d="M16 5c3.2 5.5 6 9.2 6.6 12.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" fill="none"/><path d="M16 5c2.4-2.4 6-2.8 8.6-1.4-1.8 2.8-5.4 3.8-8.6 1.4Z" fill="currentColor"/><circle cx="8.8" cy="22.2" r="4.8" fill="currentColor"/><circle cx="22.8" cy="22.2" r="4.8" fill="currentColor"/></svg></span></span><span class="row__dots"></span><span class="row__price">460 ₽</span></div>
+            <div class="row__meta">220 г · со сметаной</div>
+          </li>
+          <li>
+            <div class="row"><span class="row__name">Брускетта с томатами и моцареллой</span><span class="row__dots"></span><span class="row__price">400 ₽</span></div>
+            <div class="row__meta">180 г</div>
+          </li>
+          <li>
+            <div class="row"><span class="row__name">Брускетта с лососем</span><span class="row__dots"></span><span class="row__price">530 ₽</span></div>
+            <div class="row__meta">170 г · творожный сыр, руккола</div>
+          </li>
+          <li>
+            <div class="row"><span class="row__name">Круассан с миндалём</span><span class="row__dots"></span><span class="row__price">310 ₽</span></div>
+            <div class="row__meta">110 г</div>
+          </li>
+          <li>
+            <div class="row"><span class="row__name">Гранола с йогуртом и ягодами</span><span class="row__dots"></span><span class="row__price">380 ₽</span></div>
+            <div class="row__meta">250 г</div>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ЯГОДЫ В ШОКОЛАДЕ -->
+<section class="berries" id="berries">
+  <div class="berries__split">
+    <div class="berries__photos">
+      <img loading="lazy" decoding="async" src="img/b-cherries.webp" alt="Вишня в тёмном шоколаде на латунной подставке при свечах">
+      <img loading="lazy" decoding="async" src="img/b-strawberries.webp" alt="Клубника в бельгийском шоколаде в подарочной коробке">
+    </div>
+    <div class="berries__body">
+      <h2>Ягоды в шоколаде</h2>
+      <p>Клубнику, вишню и черешню окунаем в бельгийский шоколад в день заказа. Не заготавливаем впрок: ягода в шоколаде живёт сутки, дальше это уже не то.</p>
+      <p>Наборы собираем в коробку с лентой — можно забрать самому или заказать доставку по городу. На большие наборы нужен день.</p>
+      <div class="priceline">
+        <div><b>690 ₽</b><span>клубника, 6 шт · 180 г</span></div>
+        <div><b>1290 ₽</b><span>клубника, 12 шт · 360 г</span></div>
+        <div><b>570 ₽</b><span>вишня в тёмном · 150 г</span></div>
+        <div><b>1490 ₽</b><span>набор ассорти · 400 г</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- КОНТАКТЫ -->
+<section class="contacts" id="contacts">
+  <div class="wrap">
+    <h2>Где мы</h2>
+
+    <div class="contacts__cols">
+      <div class="field">
+        <div class="field__label">Адрес</div>
+        <div class="field__value">
+          <a href="https://yandex.ru/maps/?text=Волгоград, улица Мира 26" target="_blank" rel="noopener">ул. Мира, 26</a>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field__label">Телефон</div>
+        <div class="field__value"><a href="tel:+78442000000">+7 (8442) 00-00-00</a></div>
+      </div>
+
+      <div class="field">
+        <div class="field__label">Часы работы</div>
+        <dl class="hours">
+          <dt>Пн — Чт</dt><dd>9:00 — 22:00</dd>
+          <dt>Пт — Сб</dt><dd>9:00 — 23:00</dd>
+          <dt>Вс</dt><dd>10:00 — 22:00</dd>
+        </dl>
+      </div>
+    </div>
+
+    <div class="social">
+      <a href="#" target="_blank" rel="noopener">Telegram</a>
+      <a href="#" target="_blank" rel="noopener">VK</a>
+    </div>
+  </div>
+
+  <div class="mapband">
+    <iframe
+      src="https://yandex.ru/map-widget/v1/?um=constructor%3A3a5d14a3546b6ef4ed667208e962d6212b9255beb9e01b7d3f6dac0586b243e9&amp;source=constructor"
+      loading="lazy"
+      title="Cherry на карте: Волгоград, улица Мира, 26"></iframe>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap foot__in">
+    <div class="foot__name">Cherry</div>
+    <div>Волгоград, ул. Мира, 26 · <a href="tel:+78442000000">+7 (8442) 00-00-00</a></div>
+    <div>Концепт-проект. Кафе вымышленное.</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var bar = document.getElementById('bar');
+  var shown = false;
+  function check(){
+    var need = window.scrollY > window.innerHeight * 0.85;
+    if(need !== shown){ shown = need; bar.classList.toggle('show', need); }
+  }
+  window.addEventListener('scroll', check, {passive:true});
+  check();
+})();
+</script>
+
+</body>
+</html>
